@@ -1,0 +1,385 @@
+import javax.swing.*;
+import java.util.*;
+import java.awt.*;
+import java.io.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import javax.imageio.*;
+import javax.swing.*;
+import java.awt.geom.*;
+import java.awt.datatransfer.*;
+public class Editor extends JFrame
+{
+    KeyboardInput keyboard = new KeyboardInput();
+    Canvas canvas;
+    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    static int HEIGHT = (screenSize.height-25);
+    static int WIDTH = screenSize.width;
+    boolean gameOver = false;
+    ;
+    public static void main(String[] args) throws InterruptedException, UnsupportedFlavorException, IOException
+    {  
+        Editor program = new Editor();
+        program.setTitle( "NotePad" );
+        program.setVisible( true );
+        program.run();
+        System.exit( 0 );
+    }  
+    
+    public Editor() 
+    {
+        setIgnoreRepaint( true );
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        canvas = new Canvas();
+        canvas.setIgnoreRepaint( true );
+        canvas.setSize( WIDTH, HEIGHT );
+        canvas.add(new PopupMenu());
+        add( canvas );
+        pack();
+        
+        
+        // for keyboard using
+        addKeyListener( keyboard );
+        canvas.addKeyListener( keyboard );
+        
+        // for mouse using
+    }
+    
+    public static BufferedImage scale(BufferedImage img, int newW, int newH)
+    {
+        int w = img.getWidth();
+        int h = img.getHeight();
+        BufferedImage dimg = new BufferedImage(newW, newH, img.getType());
+        Graphics2D g = dimg.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);
+        g.dispose();
+        return dimg;      
+    }
+    public void run() throws InterruptedException, UnsupportedFlavorException, IOException
+    {
+        canvas.createBufferStrategy( 2 );
+        BufferStrategy buffer = canvas.getBufferStrategy();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        GraphicsConfiguration gc = gd.getDefaultConfiguration();
+        BufferedImage bi = gc.createCompatibleImage( WIDTH, HEIGHT );
+        
+        Graphics graphics = null;
+        Graphics2D draw = (Graphics2D)graphics;
+        Color background = Color.WHITE;
+        
+        while(keyboard.keyDown( KeyEvent.VK_ESCAPE ) == false && gameOver == false) 
+        {
+            try { 
+                keyboard.poll();
+                draw = bi.createGraphics();
+                draw.setColor( background );
+                draw.fillRect( 0, 0, WIDTH, HEIGHT );
+                //draw.setFont(new Font(font, Font.PLAIN, 12));
+                //draw.setColor(new Color(219,244,255));
+                
+                
+                
+                
+                //img = scale(img,16,16);//img.getWidth(),img.getHeight(),1000,1000);
+
+                
+                
+                
+                
+                
+                
+                processInput();
+                graphics = buffer.getDrawGraphics();
+                graphics.drawImage( bi, 0, 0, null );
+                if( !buffer.contentsLost() )
+                buffer.show();
+                Thread.sleep(15);
+            }
+                finally 
+            {
+            
+                if( graphics != null ) 
+                  graphics.dispose();
+                if( draw != null ) 
+                  draw.dispose();
+              
+            }
+        }
+        Thread.sleep(2500);
+    }
+    public void processInput() throws InterruptedException, UnsupportedFlavorException, IOException
+    {
+        
+        
+        if (keyboard.keyDown( KeyEvent.VK_SHIFT))
+        {
+            if (keyboard.keyDownOnce( KeyEvent.VK_A) )
+            {
+                content = content + "A";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_B) )
+            {
+                content = content + "B";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_C) )
+            {
+                content = content + "C";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_D) )
+            {
+                content = content + "D";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_E) )
+            {
+                content = content + "E";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_F) )
+            {
+                content = content + "F";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_G) )
+            {
+                content = content + "G";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_H) )
+            {
+                content = content + "H";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_I) )
+            {
+                content = content + "I";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_J) )
+            {
+                content = content + "J";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_K) )
+            {
+                content = content + "K";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_L) )
+            {
+                content = content + "L";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_M) )
+            {
+                content = content + "M";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_N) )
+            {
+                content = content + "N";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_O) )
+            {
+                content = content + "O";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_P) )
+            {
+                content = content + "P";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_Q) )
+            {
+                content = content + "Q";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_R) )
+            {
+                content = content + "R";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_S) )
+            {
+                content = content + "S";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_T) )
+            {
+                content = content + "T";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_U) )
+            {
+                content = content + "U";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_V) )
+            {
+                content = content + "V";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_W) )
+            {
+                content = content + "W";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_X) )
+            {
+                content = content + "X";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_Y) )
+            {
+                content = content + "Y";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_Z) )
+            {
+                content = content + "Z";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_1) )
+            {
+                content = content + "!";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_2) )
+            {
+                content = content + "@";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_3) )
+            {
+                content = content + "#";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_4) )
+            {
+                content = content + "$";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_5) )
+            {
+                content = content + "%";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_6) )
+            {
+                content = content + "^";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_7) )
+            {
+                content = content + "&";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_8) )
+            {
+                content = content + "*";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_9) )
+            {
+                content = content + "(";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_0) )
+            {
+                content = content + ")";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_PERIOD) )
+            {
+                content = content + ">";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_COMMA) )
+            {
+                content = content + "<";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_SLASH) )
+            {
+                content = content + "?";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_BACK_SLASH) )
+            {
+                content = content + "|";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_SEMICOLON) )
+            {
+                content = content + ":";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_QUOTE) )
+            {
+                content = content + "\"";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_OPEN_BRACKET) )
+            {
+                content = content + "{";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_CLOSE_BRACKET) )
+            {
+                content = content + "}";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_MINUS) )
+            {
+                content = content + "_";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_EQUALS) )
+            {
+                content = content + "+";
+            }
+        }
+        else 
+        {
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_X) )
+            {
+                content = content + "x";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_Y) )
+            {
+                content = content + "y";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_Z) )
+            {
+                content = content + "z";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_1) )
+            {
+                content = content + "1";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_2) )
+            {
+                content = content + "2";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_3) )
+            {
+                content = content + "3";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_4) )
+            {
+                content = content + "4";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_5) )
+            {
+                content = content + "5";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_6) )
+            {
+                content = content + "6";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_7) )
+            {
+                content = content + "7";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_8) )
+            {
+                content = content + "8";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_9) )
+            {
+                content = content + "9";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_0) )
+            {
+                content = content + "0";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_PERIOD) )
+            {
+                content = content + ".";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_SLASH) )
+            {
+                content = content + "/";
+            }
+            
+            if (keyboard.keyDownOnce( KeyEvent.VK_MINUS) )
+            {
+                content = content + "-";
+            }
+            if (keyboard.keyDownOnce( KeyEvent.VK_EQUALS) )
+            {
+                content = content + "=";
+            }
+        }
+    }
+}
+
